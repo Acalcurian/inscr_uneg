@@ -10,8 +10,6 @@ $conectar = mysqli_connect($servidor, $usuario, $password, $bd);
 if($conectar->connect_error){
 
     die("error al conectar la bd".$conectar->connect_error);
-}else {
-    echo "Conexión exitosa a la base de datos.";
 }
 
 
