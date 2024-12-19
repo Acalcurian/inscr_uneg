@@ -1,3 +1,13 @@
+<?php
+
+include 'include/conecta.php';
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
