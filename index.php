@@ -2,19 +2,28 @@
 session_start();
 include 'include/conecta.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (!empty($_POST)) {
+
     $email = mysqli_real_escape_string($conectar, $_POST['email']);
     $pass = mysqli_real_escape_string($conectar, $_POST['password']);
 
     $sql = "SELECT id_estudiante FROM estudiantes WHERE correo_electronico = '$email' AND contraseña = '$pass' ";
     $resultado = $conectar->query($sql);
 
-    if ($resultado && $resultado->num_rows > 0) {
+   /* if ($resultado && $resultado->num_rows > 0) {
         $row = $resultado->fetch_assoc();
         $_SESSION['id_sesion'] = $row['id_estudiante'];
         header("Location: post_login.php");
         exit();
-    } else {
+    } */
+    if ($resultado->num_rows > 0) {
+        $row = $resultado->fetch_assoc();
+        $_SESSION['id_sesion'] = $row['id_estudiante']; // Clave de sesión correcta
+        echo "Autenticación exitosa. Redirigiendo...";
+        header("Location: post_login.php");
+        exit;
+    }else {
         $error = "Correo o contraseña incorrectos. Inténtalo de nuevo.";
     }
 }

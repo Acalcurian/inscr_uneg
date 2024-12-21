@@ -11,7 +11,7 @@ if($conectar->connect_error){
 
     die("error al conectar la bd".$conectar->connect_error);
 }else{
-    //echo ("conectada");
+    echo ("conectada");
 }
 
 

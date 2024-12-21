@@ -1,42 +1,31 @@
 <?php
 session_start();
-include ("include/conecta.php");
+include 'include/conecta.php';
 
-//verificar sesion activa
-if(isset($_SESSION['id_session'])){
-
+// Verificar si la sesión está activa
+if (!isset($_SESSION['id_sesion'])) {
     header("Location: index.php");
     exit;
-    
 }
 
-//obtener id del estudiante
-$id_estudiante = $_SESSION['id_session'];
+// Obtener el ID del estudiante desde la sesión
+$id_estudiante = $_SESSION['id_sesion'];
 
-//consultar datos del estudiante
-
-$sql = "SELECT nombre, apellido, cedula, carrera, nivel_Academico, promedio, email 
-         FROM estudiantes WHERE id_estudiante = ? ";
+// Consultar los datos del estudiante
+$sql = " SELECT nombre, apellido, cedula, carrera, nivel_academico, promedio, correo_electronico 
+        FROM estudiantes WHERE id_estudiante = ? ";
 
 $stmt = $conectar->prepare($sql);
 $stmt->bind_param("i", $id_estudiante);
 $stmt->execute();
+$result = $stmt->get_result();
 
-$resultado = $stmt->get_result();
-
-if($resultado->num_rows > 0){
-
-    $estudiante = $resultado->fetch_assoc();
+if ($result->num_rows > 0) {
+    $estudiante = $result->fetch_assoc();
 } else {
     echo "Error: Estudiante no encontrado.";
     exit;
 }
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +74,7 @@ if($resultado->num_rows > 0){
                 <div class="mb-4 p-4 bg-light rounded shadow-sm">
                     <h4 class="fw-bold">Datos del Estudiante</h4>
                     <ul class="list-unstyled">
-                        <li><strong>Nombre:</strong> <?php echo $estudiante['nombre']?></li>
+                        <li><strong>Nombre:</strong> [Nombre del Estudiante]</li>
                         <li><strong>Apellido:</strong> [Apellido del Estudiante]</li>
                         <li><strong>Cédula:</strong> [Cédula del Estudiante]</li>
                         <li><strong>Carrera:</strong> [Carrera del Estudiante]</li>
