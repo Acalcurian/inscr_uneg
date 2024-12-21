@@ -74,13 +74,13 @@ if ($result->num_rows > 0) {
                 <div class="mb-4 p-4 bg-light rounded shadow-sm">
                     <h4 class="fw-bold">Datos del Estudiante</h4>
                     <ul class="list-unstyled">
-                        <li><strong>Nombre:</strong> [Nombre del Estudiante]</li>
-                        <li><strong>Apellido:</strong> [Apellido del Estudiante]</li>
-                        <li><strong>Cédula:</strong> [Cédula del Estudiante]</li>
-                        <li><strong>Carrera:</strong> [Carrera del Estudiante]</li>
-                        <li><strong>Nivel Académico:</strong> [Nivel Académico]</li>
-                        <li><strong>Promedio:</strong> [Promedio]</li>
-                        <li><strong>Correo Electrónico:</strong> [Correo del Estudiante]</li>
+                        <li><strong>Nombre:</strong> <?php echo $estudiante['nombre']?></li>
+                        <li><strong>Apellido:</strong><?php echo $estudiante['apellido']?></li>
+                        <li><strong>Cédula:</strong> <?php echo $estudiante['cedula']?></li>
+                        <li><strong>Carrera:</strong><?php echo $estudiante['carrera']?></li>
+                        <li><strong>Nivel Académico:</strong><?php echo $estudiante['nivel_academico']?></li>
+                        <li><strong>Promedio:</strong> <?php echo $estudiante['promedio']?></li>
+                        <li><strong>Correo Electrónico:</strong> <?php echo $estudiante['correo_electronico']?></li>
                         
                     </ul>
                 </div>
