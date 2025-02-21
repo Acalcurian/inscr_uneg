@@ -11,7 +11,7 @@ if (!empty($_POST)) {
     $sql = "SELECT id_estudiante FROM estudiantes WHERE correo_electronico = '$email' AND contraseña = '$pass' ";
     $resultado = $conectar->query($sql);
 
-   /* if ($resultado && $resultado->num_rows > 0) {
+/* if ($resultado && $resultado->num_rows > 0) {
         $row = $resultado->fetch_assoc();
         $_SESSION['id_sesion'] = $row['id_estudiante'];
         header("Location: post_login.php");
@@ -56,6 +56,76 @@ if (!empty($_POST)) {
         }
     </style>
 </head>
+<div id="chatbot-container">
+    <div id="chatbot-header">Asistente Virtual</div>
+    <div id="chatbot-messages"></div>
+    <input type="text" id="chatbot-input" placeholder="Escribe tu pregunta..." />
+    <button onclick="sendMessage()">Enviar</button>
+</div>
+
+<style>
+    #chatbot-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #chatbot-header {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 10px 10px 0 0;
+    }
+    #chatbot-messages {
+        color: black;
+        height: 200px;
+        overflow-y: auto;
+        padding: 10px;
+    }
+    #chatbot-input {
+        width: calc(100% - 70px);
+        padding: 5px;
+    }
+    button {
+        padding: 5px;
+        background: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    function sendMessage() {
+        let input = document.getElementById("chatbot-input");
+        let message = input.value.trim();
+        if (message === "") return;
+
+        let messagesDiv = document.getElementById("chatbot-messages");
+        messagesDiv.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
+
+        fetch("chatbot.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "message=" + encodeURIComponent(message)
+        })
+        .then(response => response.json())
+        .then(data => {
+            messagesDiv.innerHTML += `<div><strong>Bot:</strong> ${data.message}</div>`;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+
+        input.value = "";
+    }
+</script>
+
 <body>
     <header>
         <h1 class="text-center mt-4">SISTEMA DE INSCRIPCIÓN</h1>
